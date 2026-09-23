@@ -16,8 +16,8 @@ public:
 	const T& getY() const { return y; }
 	const T& getZ() const { return z; }
 
-	float magnitude() const {return std::sqrt(x * x + y * y + z * z);}
-	Vector3D normalize() const {return *this/magnitude();}
+	float magnitude() const { return std::sqrt((x * x) + (y * y) + (z * z)); }
+	Vector3D normalize() const {return *this/std::sqrt((x * x) + (y * y) + (z * z));}
 
 	float dot(const Vector3D& v) const {return x * v.x + y * v.y + z * v.z;}
 	Vector3D cross(const Vector3D& v) const {return { y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x };}
@@ -37,6 +37,12 @@ public:
 	Vector3D operator*(T otro) const {
 		return { x * otro, y * otro, z * otro };
 	}
+	Vector3D operator/(const Vector3D& otro) const {
+		return { x / otro.x, y / otro.y, z / otro.z };
+	}
+	Vector3D operator/(T otro) const {
+		return { x / otro, y / otro, z / otro };
+	}
 
 	Vector3D& operator+=(const Vector3D& otro) {
 		x += otro.x;
@@ -51,13 +57,26 @@ public:
 		return *this;
 	}
 
-	bool operator==(const Vector3D& v1, const Vector3D& v2) {
-		return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
+	Vector3D& operator*=(const Vector3D& otro) {
+		x *= otro.x;
+		y *= otro.y;
+		z *= otro.z;
+		return *this;
+	}
+	Vector3D& operator*=(T otro) {
+		x *= otro;
+		y *= otro;
+		z *= otro;
+		return *this;
+	}
+
+	bool operator == (const Vector3D& v2) {
+		return this->x == v2.x && this->y == v2.y && this->z == v2.z;
 	}
 
 	template<typename U>
-	operator Vector2D<U>() const {
-		return { U(x), U(y) };
+	operator Vector3D<U>() const {
+		return { U(x), U(y), U(z) };
 	}
 
 	operator physx::PxVec3() const {
