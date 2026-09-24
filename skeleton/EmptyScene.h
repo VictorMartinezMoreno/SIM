@@ -10,26 +10,29 @@ public:
     explicit EmptyScene(std::string name) : Scene(std::move(name)) {}
 
     void init() override {
-        u = u.normalize();
-        v = v.normalize();
-        w = w.normalize();
-
-		u *= 5.0f;
-		v *= 5.0f;
-		w *= 5.0f;
-
-        physx::PxShape* Ushape = CreateShape(physx::PxSphereGeometry(1.0f));
-        physx::PxShape* Vshape = CreateShape(physx::PxSphereGeometry(1.0f));
-        physx::PxShape* Wshape = CreateShape(physx::PxSphereGeometry(1.0f));
+        physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(1.0f));
 
         m_Utransform = physx::PxTransform(u);
         m_Vtransform = physx::PxTransform(v);
         m_Wtransform = physx::PxTransform(w);
+		m_Jtransform = physx::PxTransform(j);
 
         // Se registra el RenderItem exactamente como en la plantilla original
-        m_renderItems.push_back(new RenderItem(Ushape, &m_Utransform, Vector4(1.0f, 0.0f, 0.0f, 1.0f)));
-        m_renderItems.push_back(new RenderItem(Vshape, &m_Vtransform, Vector4(0.0f, 1.0f, 0.0f, 1.0f)));
-        m_renderItems.push_back(new RenderItem(Wshape, &m_Wtransform, Vector4(0.0f, 0.0f, 1.0f, 1.0f)));
+        Vector4 color = {1.0f, 0.0f, 0.0f, 1.0f};
+
+        m_renderItems.push_back(new RenderItem(shape, &m_Utransform, color));
+        m_renderItems.push_back(new RenderItem(shape, &m_Vtransform, color));
+        m_renderItems.push_back(new RenderItem(shape, &m_Wtransform, color));
+		m_renderItems.push_back(new RenderItem(shape, &m_Jtransform, color));
+
+        //Recorremos todos los elementos renderizables y cambiamos su color en función del producto escalara con el vector director de la visión del personaje
+        //Los vectores que se usan para calcular esto es la propia posición porque suponemos que el origen de todos es 0,0,0 y V=B-A -> V=B-0 -> V=B.
+        for (auto& m_renderItem : m_renderItems) {
+            float prod = d.dot(m_renderItem->transform->p);
+            if (prod < 0) m_renderItem->color = {0.0f, 1.0f, 0.0f, 1.0f}; // Verde si el producto escalar es negativo
+            else if (prod > 0) m_renderItem->color = {1.0f, 0.0f, 0.0f, 1.0f}; // Rojo si el producto escalar es positivo
+            else m_renderItem->color = { 1.0f, 1.0f, 0.0f, 1.0f }; // Amarillo si el producto escalar es cero
+		}
     }
 
     void update(double dt) override {
@@ -42,6 +45,7 @@ public:
             m_Utransform = physx::PxTransform(u);
             m_Vtransform = physx::PxTransform(v);
             m_Wtransform = physx::PxTransform(w);
+            m_Jtransform = physx::PxTransform(j);
         }
     }
 
@@ -53,15 +57,18 @@ public:
     }
 
 private:
-    Vector3D<float> u = Vector3D<float>(3.0f, 1.0f, 0.0f);
-    Vector3D<float> v = Vector3D<float>(0.0f, 4.0f, 0.0f);
-    //Si se cambia el orden en el que se obtiene el producto vectorial, el vector resultante tendrá la dirección contraria,
-	//esto se puede observar con la regla de la mano derecha, que indica la dirección del producto vectorial.
-	Vector3D<float> w = u.cross(v);
+    Vector3D<float> u = Vector3D<float>(2.0f, 0.0f, 3.0f);
+    Vector3D<float> v = Vector3D<float>(-4.0f, 0.0f, 1.0f);
+    Vector3D<float> w = Vector3D<float>(0.0f, 0.0f, -5.0f);
+    Vector3D<float> j = Vector3D<float>(3.0f, 0.0f, 0.0f);
+
+	Vector3D<float> d = Vector3D<float>(0.0f, 0.0f, 1.0f);
+
 
     physx::PxTransform m_Utransform;
     physx::PxTransform m_Vtransform;
     physx::PxTransform m_Wtransform;
+    physx::PxTransform m_Jtransform;
 
     std::vector<RenderItem*> m_renderItems;
 };
