@@ -1,6 +1,7 @@
 #pragma once
 
 #include <PxPhysicsAPI.h>
+#include <cmath>
 
 template<typename T = float>
 class Vector3D {

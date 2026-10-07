@@ -12,6 +12,8 @@ void Scene1::update(double dt) {
 
 void Scene1::keyPress(unsigned char key, const physx::PxTransform& camera) {
 	if (key == 'r' || key == 'R') {
+		cleanup();
+		init();
 	}
 }
 

@@ -1,13 +1,9 @@
 #include "Particle.h"
 
-Particle::Particle(Vector3D<float> Pos, Vector3D<float> Vel)
+Particle::Particle(Vector3D<float> Pos, Vector3D<float> Vel, Vector3D<float> ac)
 	: pos(Pos), vel(Vel) {
 
-	const float dt_ = 1.0f / 60.0f;
-	antPos = pos;
-	antPos.p -= vel * dt_;
-
-	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(1.0f));
+	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(0.2f));
 	renderItem = new RenderItem(shape, &pos, { 0.0f, 1.0f, 0.0f, 1.0f });
 }
 
@@ -19,6 +15,8 @@ Particle::~Particle() {
 }
 
 void Particle::integrateEuler(double t) {
+	firstMove = false;
+
 	const physx::PxTransform aux = pos;
 
 	pos.p += vel * t;
@@ -28,6 +26,8 @@ void Particle::integrateEuler(double t) {
 }
 
 void Particle::integrateEulerSemi(double t) {
+	firstMove = false;
+
 	const physx::PxTransform aux = pos;
 
 	vel += a * t;
@@ -38,9 +38,11 @@ void Particle::integrateEulerSemi(double t) {
 }
 
 void Particle::integrateVerlet(double t) {
-	const physx::PxTransform aux = pos;
 
-	pos.p = (pos.p * 2.0f) - antPos.p + (a * t * t);
-
-	antPos = aux;
+	if (firstMove) integrateEuler(t);
+	else {
+		const physx::PxTransform aux = pos;
+		pos.p = (pos.p * 2.0f) - antPos.p + (a * t * t);
+		antPos = aux;
+	}
 }

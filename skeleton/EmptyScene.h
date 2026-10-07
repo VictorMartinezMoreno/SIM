@@ -78,7 +78,6 @@ private:
 	physx::PxTransform m_Atransform;
 	physx::PxTransform m_Btransform;
 
-
 	std::vector<RenderItem*> m_auxRenderItems;
 	std::vector<physx::PxTransform*> m_auxTItems;
 	std::vector<RenderItem*> m_renderItems;
