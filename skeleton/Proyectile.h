@@ -4,7 +4,7 @@
 
 class Proyectile : public Particle {
 protected:
-	const float velSFactor = 15.0f;
+	const float velSFactor = 25.0f;
 
 	Vector3D<float> velR;
 
@@ -12,11 +12,11 @@ protected:
 	float masaS;
 
 public:
-	Proyectile(Vector3D<float> Pos, Vector3D<float> Vel, float masa);
+	Proyectile(Vector3D<float> Pos, Vector3D<float> Vel, float masa, float size = 1.0f, Vector4 color = {0.0f, 0.0f, 0.0f, 1.0f}, float d = 0.7f);
 	virtual ~Proyectile() = default;
 
 	void setMass(float mass);
-	float getMass() const { return masaR; }
+	float getMass() const noexcept { return masaR; }
 
 	void setAcceleration(Vector3D<float> acceleration);
 protected:

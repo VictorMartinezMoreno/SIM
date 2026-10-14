@@ -1,10 +1,10 @@
 #include "Particle.h"
 
-Particle::Particle(Vector3D<float> Pos, Vector3D<float> Vel, Vector3D<float> ac)
-	: pos(Pos), vel(Vel) {
+Particle::Particle(Vector3D<float> Pos, Vector3D<float> Vel, Vector3D<float> ac, float size, Vector4 color, float d)
+	: pos(Pos), vel(Vel), color(color), d(d), size(size) {
 
-	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(0.2f));
-	renderItem = new RenderItem(shape, &pos, { 0.0f, 1.0f, 0.0f, 1.0f });
+	physx::PxShape* shape = CreateShape(physx::PxSphereGeometry(size));
+	renderItem = new RenderItem(shape, &pos, color);
 }
 
 Particle::~Particle() {

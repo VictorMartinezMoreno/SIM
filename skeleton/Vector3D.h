@@ -13,9 +13,13 @@ public:
 	inline Vector3D(T x, T y, T z) : x(x), y(y), z(z) {};
 	inline Vector3D(const physx::PxVec3& v) : x(v.x), y(v.y), z(v.z) {};
 
-	const T& getX() const { return x; }
-	const T& getY() const { return y; }
-	const T& getZ() const { return z; }
+	inline const T& getX() const { return x; }
+	inline const T& getY() const { return y; }
+	inline const T& getZ() const { return z; }
+
+	inline void setX(float v) { x = v; }
+	inline void setY(float v) { y = v; }
+	inline void setZ(float v) { z = v; }
 
 	float magnitude() const { return std::sqrt((x * x) + (y * y) + (z * z)); }
 	Vector3D normalize() const {return *this/std::sqrt((x * x) + (y * y) + (z * z));}

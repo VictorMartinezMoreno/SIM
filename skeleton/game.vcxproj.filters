@@ -16,6 +16,16 @@
     <ClCompile Include="Scene1.cpp" />
     <ClCompile Include="Scene2.cpp" />
     <ClCompile Include="Proyectile.cpp" />
+    <ClCompile Include="ParticleFactory.cpp" />
+    <ClCompile Include="Scene3.cpp" />
+    <ClCompile Include="Emitter.cpp" />
+    <ClCompile Include="RectangleEmitter.cpp" />
+    <ClCompile Include="SquareEmitter.cpp" />
+    <ClCompile Include="CircleEmitter.cpp" />
+    <ClCompile Include="SphereEmitter.cpp" />
+    <ClCompile Include="EllipsoidEmitter.cpp" />
+    <ClCompile Include="CubeEmitter.cpp" />
+    <ClCompile Include="BoxEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -35,6 +45,16 @@
     <ClInclude Include="Scene1.h" />
     <ClInclude Include="Scene2.h" />
     <ClInclude Include="Proyectile.h" />
+    <ClInclude Include="ParticleFactory.h" />
+    <ClInclude Include="Scene3.h" />
+    <ClInclude Include="RectangleEmitter.h" />
+    <ClInclude Include="Emitter.h" />
+    <ClInclude Include="SquareEmitter.h" />
+    <ClInclude Include="CircleEmitter.h" />
+    <ClInclude Include="SphereEmitter.h" />
+    <ClInclude Include="EllipsoidEmitter.h" />
+    <ClInclude Include="CubeEmitter.h" />
+    <ClInclude Include="BoxEmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
