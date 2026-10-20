@@ -16,9 +16,12 @@ public:
 		float airSize,
 		float m_minVel, float m_maxVel,
 		ParticleType type,
-		float mean = 0.f, float stdD = 1.f,
+		float lifeTime = 1000.f,
+		Vector4 color = {0.f,0.f,0.f,1.f},
+		float pSize = 1.f,
 		float freq = 1.f,
-		bool active = false
+		float mean = 0.f, float stdD = 1.f,
+		bool active = true
 	);
 
 	virtual ~SquareEmitter() = default;

@@ -43,10 +43,10 @@ public:
 		return { x * otro, y * otro, z * otro };
 	}
 	Vector3D operator/(const Vector3D& otro) const {
-		return { x / otro.x, y / otro.y, z / otro.z };
+		return { otro.x != 0 ? x / otro.x : 0, otro.y != 0 ? y / otro.y : 0, otro.z != 0 ? z / otro.z : 0 };
 	}
 	Vector3D operator/(T otro) const {
-		return { x / otro, y / otro, z / otro };
+		return { otro != 0 ? x / otro : 0, otro != 0 ? y / otro : 0, otro != 0 ? z / otro : 0 };
 	}
 
 	Vector3D& operator+=(const Vector3D& otro) {

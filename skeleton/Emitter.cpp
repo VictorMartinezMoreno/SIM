@@ -1,11 +1,10 @@
-
-
 #include "Emitter.h"
-#include "ParticleFactory.h"
 #include "Proyectile.h"
+#include "Ash.h"
+#include "Spark.h"
 
-Emitter::Emitter( ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float m_minVel, float m_maxVel, ParticleType type, float mean, float stdD, float freq, bool active)
- : m_factory(factory), m_position(position), m_direction(direction), m_minVel(m_minVel), m_maxVel(m_maxVel), m_type(type), m_densityFunc(UNIFORM), m_active(active), m_mean(mean), m_stdDeviation(stdD), m_freq(freq), m_currT(1.f) {
+Emitter::Emitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float m_minVel, float m_maxVel, ParticleType type, Vector4 color, float lifeTime, float pSize, float freq, float mean, float stdD, bool active)
+	: m_factory(factory), m_position(position), m_direction(direction), m_minVel(m_minVel), m_maxVel(m_maxVel), m_type(type), m_densityFunc(UNIFORM), m_active(active), m_mean(mean), m_stdDeviation(stdD), m_freq(freq), m_currT(1.f), m_color(color), m_pSize(pSize), m_lifeTime(lifeTime) {
 	std::random_device rd;
 	m_engine.seed(rd());
 }
@@ -19,23 +18,37 @@ bool Emitter::createParticle(double t) {
 		const Vector3D<float> position = newPosition();
 		const Vector3D<float> direction = newDirection(position).normalize();
 
-		Vector3D<float> color = position - m_position; color = color.normalize();
-		color = { abs(color.getX()), abs(color.getY()), abs(color.getZ()) };
+		Particle* p = m_factory->getParticle(m_type);
 
-		if (color.getX() > color.getY() && color.getX() > color.getZ()) {
-			color = { 1, 0, 0 };
-		}
-		else if (color.getY() > color.getZ()) {
-			color = { 0, 1, 0 };
-		}
-		else {
-			color = { 0, 0, 1 };
-		}
-
-		switch (m_type) {
-		case PROYECTILE:
-			m_factory->addParticle(new Proyectile(position, direction * vel, 0.005f, 0.5f, { color.getX(), color.getY(), color.getZ(), 1.f }));
-		default:break;
+		if (p) {
+			if (m_type == PROYECTILE) {
+				Proyectile* proyectile = static_cast<Proyectile*>(p);
+				proyectile->setColor(m_color);
+				proyectile->setPos({ position.getX(), position.getY(), position.getZ() });
+				proyectile->setSize(m_pSize);
+				proyectile->setVel(direction * vel);
+				proyectile->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
+				proyectile->setActive(true);
+			}
+			else if (m_type == ASH) {
+				Ash* ash = static_cast<Ash*>(p);
+				ash->setColor(m_color);
+				ash->setPos({ position.getX(), position.getY(), position.getZ() });
+				ash->setSize(m_pSize);
+				ash->setVel(direction * vel);
+				ash->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
+				ash->setActive(true);
+			}
+			else if (m_type == SPARK) {
+				Spark* spark = static_cast<Spark*>(p);
+				spark->setColor(m_color);
+				spark->setPos({ position.getX(), position.getY(), position.getZ() });
+				spark->setSize(m_pSize);
+				spark->setVel(direction * vel);
+				spark->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
+				spark->reset();
+				spark->setActive(true);
+			}
 		}
 
 		m_currT -= 1.f / m_freq;

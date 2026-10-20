@@ -1,7 +1,7 @@
 #include "BoxEmitter.h"
 
-BoxEmitter::BoxEmitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float width, float height, float depth, float m_minVel, float m_maxVel, ParticleType type, float mean, float stdD, float freq, bool active)
-	: Emitter(factory, position, direction, m_minVel, m_maxVel, type, mean, stdD, freq, active), width(width), height(height), depth(depth) {
+BoxEmitter::BoxEmitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float width, float height, float depth, float m_minVel, float m_maxVel, ParticleType type, float lifeTime, Vector4 color, float pSize, float freq, float mean, float stdD, bool active)
+	: Emitter(factory, position, direction, m_minVel, m_maxVel, type, color, lifeTime, pSize, freq, mean, stdD, active), width(width), height(height), depth(depth) {
 }
 
 //Para hallar puntos aleatorios en un circulo,

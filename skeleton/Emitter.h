@@ -1,14 +1,11 @@
 #pragma once
 
 #include "Vector3D.h"
+#include "RenderUtils.hpp"
+#include "ParticleFactory.h"
 #include <vector>
 #include <functional>
 #include <random>
-
-
-enum ParticleType {
-	PROYECTILE
-};
 
 enum DensityFunction {
 	UNIFORM,
@@ -40,8 +37,11 @@ public:
 		Vector3D<float> direction,
 		float m_minVel, float m_maxVel,
 		ParticleType type,
-		float mean, float stdD,
+		Vector4 color,
+		float lifeTime,
+		float pSize,
 		float freq,
+		float mean, float stdD,
 		bool active
 	);
 
@@ -55,6 +55,7 @@ public:
 
 	inline Vector3D<float>& getPos() noexcept { return m_position; }
 	inline Vector3D<float>& getDir() noexcept { return m_direction; }
+	inline Vector4& getColor() noexcept { return m_color; }
 
 	inline void setMean(float mean) noexcept { m_mean = mean; }
 	inline void setStdDeviation(float stdDeviation) noexcept { m_stdDeviation = stdDeviation; }
@@ -68,11 +69,14 @@ public:
 	inline float getFreq() const noexcept { return m_freq; }
 
 protected:
+	const float LifeTimeGap = 0.5f;
+
 	ParticleType m_type;
 	DensityFunction m_densityFunc;
 	ParticleFactory* m_factory;
 	Vector3D<float> m_position, m_direction;
-	float m_mean, m_stdDeviation, m_minVel, m_maxVel, m_freq, m_currT;
+	Vector4 m_color;
+	float m_mean, m_stdDeviation, m_minVel, m_maxVel, m_freq, m_currT, m_pSize, m_lifeTime;
 	bool m_active;
 	std::mt19937 m_engine;
 };

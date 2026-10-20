@@ -1,23 +1,29 @@
-#include "Scene3.h"
-#include "ParticleFactory.h"
+#include "BoxEmitter.h"
+#include "CircleEmitter.h"
+#include "CubeEmitter.h"
 #include "EllipsoidEmitter.h"
+#include "ParticleFactory.h"
+#include "RectangleEmitter.h"
+#include "Scene3.h"
+#include "SphereEmitter.h"
+#include "SquareEmitter.h"
 
 void Scene3::init() {
-	m_factory = new ParticleFactory();
+	m_factory = new ParticleFactory(5000);
 
-	//ParticleFactory* f0 = ParticleFactory::createCircleGenerator({ 0, 0, 0 }, { 0, 1, 0 }, 50.f, 0.f, 3.f, 1.f, 2000.f, ParticleFactory::TYPE::PROYECTILE, 0.0f, 1.0f, 1.f, true);
-	//ParticleFactory* f1 = ParticleFactory::createSquareGenerator({ 100, 0, 0 }, { 0, 1, 0 }, 50.f, 0.f, 3.f, 200.f, 500.f, ParticleFactory::TYPE::PROYECTILE, 0.0f, 1.0f, 1.f, true);
-	//ParticleFactory* f2 = ParticleFactory::createRectangleGenerator({ -100, 0, 0 }, { 0 ,1 ,0 }, 50.f, 0.f, 0.f, 3.f, 6.f, 100.f, 1200.f, ParticleFactory::TYPE::PROYECTILE, 0.0f, 1.0f, 1.f, true);
-	EllipsoidEmitter* f3 = new EllipsoidEmitter(m_factory, { 50, 0, 0 }, { 0.f, 1.f, 0.f }, 10.f, 50.f, 20.f, 10.f, 20.5f, ParticleType::PROYECTILE, 0.0f, 1.0f, 1.0f, true);
+	//EMISOR EN AREA CON PARTÍCULAS QUE IMITAN LUCIERNAGAS
+	SphereEmitter* f0 = new SphereEmitter(m_factory, { 0, 0, 0 }, 25.f, 20.f, 50.f, ParticleType::SPARK, 10000, { 1.f,1.f,0.f,1.f }, 1.f, 0.1f);
+	
+	//EMISOR CON PARTÍCULAS QUE IMITAN HUMO DISIPANDOSE
+	CircleEmitter* f4 = new CircleEmitter(m_factory, { -200, 0, 0 }, { 0, 1, 0 }, 1.f, 0.0, 0.2, 1000, 1200, ParticleType::ASH, 5000, {0.4, 0.4, 0.4, 1.f}, 7, 0.5);
 
-	//m_factories.push_back(f0);
-	//m_factories.push_back(f1);
-	//m_factories.push_back(f2);
-	m_emitters.push_back(f3);
+	m_emitters.push_back(f0);
+	m_emitters.push_back(f4);
 }
 
 void Scene3::update(double dt) {
 	if (m_factory) m_factory->update(dt);
+	
 	for (auto& emitter : m_emitters) {
 		emitter->createParticle(dt);
 	}

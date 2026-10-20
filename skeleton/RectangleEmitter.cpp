@@ -1,7 +1,7 @@
 #include "RectangleEmitter.h"
 
-RectangleEmitter::RectangleEmitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float depth, float groundWidth, float groundHeight, float airWidth, float airHeight, float m_minVel, float m_maxVel, ParticleType type, float mean, float stdD, float freq, bool active)
-: Emitter(factory, position, direction, m_minVel, m_maxVel, type, mean, stdD, freq, active), depth(depth), groundWidth(groundWidth), groundHeight(groundHeight), airWidth(airWidth), airHeight(airHeight) {
+RectangleEmitter::RectangleEmitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float depth, float groundWidth, float groundHeight, float airWidth, float airHeight, float m_minVel, float m_maxVel, ParticleType type, float lifeTime, Vector4 color, float pSize, float freq, float mean, float stdD, bool active)
+: Emitter(factory, position, direction, m_minVel, m_maxVel, type, color, lifeTime, pSize, freq, mean, stdD, active), depth(depth), groundWidth(groundWidth), groundHeight(groundHeight), airWidth(airWidth), airHeight(airHeight) {
 }
 
 Vector3D<float> RectangleEmitter::newPosition() {

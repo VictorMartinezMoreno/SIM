@@ -3,8 +3,8 @@
 #include "EllipsoidEmitter.h"
 #include <cmath>
 
-EllipsoidEmitter::EllipsoidEmitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float widthRadius, float heightRadius, float depthRadius, float m_minVel, float m_maxVel, ParticleType type, float mean, float stdD, float freq, bool active)
-	: Emitter(factory, position,direction, m_minVel, m_maxVel, type, mean, stdD, freq, active), widthRadius(widthRadius), heightRadius(heightRadius), depthRadius(depthRadius) {
+EllipsoidEmitter::EllipsoidEmitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float widthRadius, float heightRadius, float depthRadius, float m_minVel, float m_maxVel, ParticleType type, float lifeTime, Vector4 color, float pSize, float freq, float mean, float stdD, bool active)
+	: Emitter(factory, position,direction, m_minVel, m_maxVel, type, color, lifeTime, pSize, freq, mean, stdD, active), widthRadius(widthRadius), heightRadius(heightRadius), depthRadius(depthRadius) {
 }
 
 //Para hallar puntos aleatorios en un circulo,
@@ -28,7 +28,7 @@ Vector3D<float> EllipsoidEmitter::newPosition() {
 
 	const float
 		componentXY = (xRel * xRel) / (widthRadius * widthRadius) + (yRel * yRel) / (heightRadius * heightRadius),
-		zMax = depthRadius * std::sqrtf(std::max(0.f, 1.f - componentXY)),
+		zMax = depthRadius * std::sqrtf(max(0.f, 1.f - componentXY)),
 		z = m_position.getZ() + (zMax * newFloat(-1.f, 1.f));
 
 	Vector3D<float> position = { x, y, z };

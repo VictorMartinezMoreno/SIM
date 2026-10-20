@@ -261,6 +261,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Ash.cpp" />
     <ClCompile Include="BoxEmitter.cpp" />
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="CircleEmitter.cpp" />
@@ -280,10 +281,12 @@
     <ClCompile Include="Scene2.cpp" />
     <ClCompile Include="Scene3.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Spark.cpp" />
     <ClCompile Include="SphereEmitter.cpp" />
     <ClCompile Include="SquareEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Ash.h" />
     <ClInclude Include="BoxEmitter.h" />
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="CircleEmitter.h" />
@@ -304,6 +307,7 @@
     <ClInclude Include="Scene2.h" />
     <ClInclude Include="Scene3.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Spark.h" />
     <ClInclude Include="SphereEmitter.h" />
     <ClInclude Include="SquareEmitter.h" />
     <ClInclude Include="Vector3D.h" />
