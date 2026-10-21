@@ -9,15 +9,21 @@
 #include "SquareEmitter.h"
 
 void Scene3::init() {
-	m_factory = new ParticleFactory(5000);
+	glClearColor(0.f, 0.f, 0.f, 1.0f);
+
+	m_factory = new ParticleFactory(3000);
 
 	//EMISOR EN AREA CON PARTÍCULAS QUE IMITAN LUCIERNAGAS
-	SphereEmitter* f0 = new SphereEmitter(m_factory, { 0, 0, 0 }, 25.f, 20.f, 50.f, ParticleType::SPARK, 10000, { 1.f,1.f,0.f,1.f }, 1.f, 0.1f);
-	
+	BoxEmitter* f0 = new BoxEmitter(m_factory, { 0, 0, 0 }, { 0.f, 1.f, 0.f }, 25.f, 4.f, 20.f, 20.f, 25.f, ParticleType::SPARK, 20000, { 1.f,1.f,0.f,1.f }, 0.2f, 0.1f);
+
+	//EMISOR EN AREA CON PARTÍCULAS QUE IMITAN DESTELLOS (ESTRELLAS)
+	SphereEmitter* f1 = new SphereEmitter(m_factory, { 200, 0, 0 }, 500.f, 20.f, 25.f, ParticleType::SPARK, 5000, { 1.f,1.f,1.f,1.f }, 0.5f, 1.f);
+
 	//EMISOR CON PARTÍCULAS QUE IMITAN HUMO DISIPANDOSE
-	CircleEmitter* f4 = new CircleEmitter(m_factory, { -200, 0, 0 }, { 0, 1, 0 }, 1.f, 0.0, 0.2, 1000, 1200, ParticleType::ASH, 5000, {0.4, 0.4, 0.4, 1.f}, 7, 0.5);
+	CircleEmitter* f4 = new CircleEmitter(m_factory, { -200, 0, 0 }, { 0, 1, 0 }, 10.f, 0.5, 1, 1000, 1200, ParticleType::ASH, 1000, {0.4, 0.4, 0.4, 1.f}, 3, 0.5);
 
 	m_emitters.push_back(f0);
+	m_emitters.push_back(f1);
 	m_emitters.push_back(f4);
 }
 
