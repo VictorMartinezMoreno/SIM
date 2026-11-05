@@ -7,6 +7,7 @@
 class ParticleFactory;
 class ForceFactory;
 class Emitter;
+class ForceEmitter;
 
 class Scene4 : public Scene {
 public:
@@ -21,4 +22,8 @@ private:
 	std::vector<Emitter*> m_emitters;
 	ParticleFactory* m_pFactory;
 	ForceFactory* m_fFactory;
+
+	ForceEmitter* wind;
+	ForceEmitter* grav;
+	ForceEmitter* torn;
 };

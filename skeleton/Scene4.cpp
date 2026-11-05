@@ -17,9 +17,9 @@ void Scene4::init() {
 
 
 	CircleEmitter* f0 = new	CircleEmitter(m_pFactory, { 10.f, 0.f, 0.f }, { 0.f, 1.f, 0.f }, 1.f, 0.f, 0.1f, 0.1f, 0.2f, ParticleType::PROYECTILE, 2000000, { 1.f,1.f,0.f,1.f }, 1.f, 0.1f);
-	new WindEmitter(m_fFactory, new Box({ 0, -1, 0 }, { 0, 1, 0 }, 100.f, 10.f, 100.f, 10.f, 50.f), 500.f, 0.1f, 50.f);
-	new GravityEmitter(m_fFactory, new Ellipsoid({ 0, -1, 0 }, { 0,1,0 }, 100.f, 500.f, 100.f), 10.f);
-	new TornadoEmitter(m_fFactory, new Box({ 0, -1 , 0 }, { 0, 1, 0 }, 100, 100, 100, 100, 500), 100.f, 0.1f);
+	wind = new WindEmitter(m_fFactory, new Box({ 0, -1, 0 }, { 0, 1, 0 }, 100.f, 10.f, 100.f, 10.f, 50.f), 500.f, 0.1f, 50.f);
+	grav = new GravityEmitter(m_fFactory, new Ellipsoid({ 0, -1, 0 }, { 0,1,0 }, 100.f, 500.f, 100.f), 10.f);
+	torn = new TornadoEmitter(m_fFactory, new Box({ 0, -1 , 0 }, { 0, 1, 0 }, 100, 100, 100, 100, 500), 100.f, 0.1f);
 
 	m_emitters.push_back(f0);
 }
@@ -34,7 +34,13 @@ void Scene4::update(double dt) {
 }
 
 void Scene4::keyPress(unsigned char key, const physx::PxTransform& camera) {
-
+	if (key == 'r' || key == 'R') {
+		cleanup();
+		init();
+	}
+	else if (key == 'z' || key == 'Z') grav->activate(!grav->isActive());
+	else if (key == 'x' || key == 'X') wind->activate(!wind->isActive());
+	else if (key == 'c' || key == 'C') torn->activate(!torn->isActive());
 }
 
 void Scene4::cleanup() {
