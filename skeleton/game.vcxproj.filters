@@ -34,6 +34,8 @@
     <ClCompile Include="Box.cpp" />
     <ClCompile Include="GravityEmitter.cpp" />
     <ClCompile Include="Scene4.cpp" />
+    <ClCompile Include="WindEmitter.cpp" />
+    <ClCompile Include="TornadoEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -132,6 +134,10 @@
     <ClInclude Include="Scene4.h">
       <Filter>cabeceras</Filter>
     </ClInclude>
+    <ClInclude Include="WindEmitter.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="TornadoEmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">

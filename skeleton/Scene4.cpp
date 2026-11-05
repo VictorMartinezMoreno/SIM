@@ -1,8 +1,11 @@
 #include "Scene4.h"
 #include "CircleEmitter.h"
 #include "GravityEmitter.h"
+#include "WindEmitter.h"
+#include "TornadoEmitter.h"
 #include "ForceFactory.h"
 #include "Ellipsoid.h"
+#include "Box.h"
 #include "Particle.h"
 
 void Scene4::init() {
@@ -10,8 +13,13 @@ void Scene4::init() {
 	std::vector<ParticleFactory*> v = { m_pFactory };
 	m_fFactory = new ForceFactory(v);
 
-	CircleEmitter* f0 = new	CircleEmitter(m_pFactory, { 0.f, 0.f, 0.f }, { 0.f, 0.f, 1.f }, 1.f, 0.f, 0.1f, 1900.f, 2000.f, ParticleType::PROYECTILE, 2000000, { 1.f,1.f,0.f,1.f }, 1.f, 0.1f);
-	new GravityEmitter(m_fFactory, new Ellipsoid({ 250,0,0 }, { 0,1,0 }, 500.f, 500.f, 500.f), 50000.f, -1.f);
+	
+
+
+	CircleEmitter* f0 = new	CircleEmitter(m_pFactory, { 10.f, 0.f, 0.f }, { 0.f, 1.f, 0.f }, 1.f, 0.f, 0.1f, 0.1f, 0.2f, ParticleType::PROYECTILE, 2000000, { 1.f,1.f,0.f,1.f }, 1.f, 0.1f);
+	new WindEmitter(m_fFactory, new Box({ 0, -1, 0 }, { 0, 1, 0 }, 100.f, 10.f, 100.f, 10.f, 50.f), 500.f, 0.1f, 50.f);
+	new GravityEmitter(m_fFactory, new Ellipsoid({ 0, -1, 0 }, { 0,1,0 }, 100.f, 500.f, 100.f), 10.f);
+	new TornadoEmitter(m_fFactory, new Ellipsoid({ 0, -1 , 0 }, { 0, 1, 0 }, 50, 1000, 50), 1000000.f, 0.1f);
 
 	m_emitters.push_back(f0);
 }

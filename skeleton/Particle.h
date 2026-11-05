@@ -17,6 +17,7 @@ public:
 	inline void decreaseLifeTime(float t) noexcept { currLifeTime -= t; }
 	inline float getLifeTime() const noexcept { return currLifeTime; }
 	inline const Vector3D<float>& getPos() const noexcept { return pos.p; }
+	inline const Vector3D<float>& getVel() const noexcept { return vel; }
 
 	inline void setColor(Vector4 color) noexcept { this->color = color; }
 	inline virtual void setLifeTime(float t) noexcept { maxLifeTime = t; currLifeTime = t; }

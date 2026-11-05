@@ -290,6 +290,8 @@
     <ClCompile Include="Spark.cpp" />
     <ClCompile Include="SphereEmitter.cpp" />
     <ClCompile Include="SquareEmitter.cpp" />
+    <ClCompile Include="TornadoEmitter.cpp" />
+    <ClCompile Include="WindEmitter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Ash.h" />
@@ -323,7 +325,9 @@
     <ClInclude Include="Spark.h" />
     <ClInclude Include="SphereEmitter.h" />
     <ClInclude Include="SquareEmitter.h" />
+    <ClInclude Include="TornadoEmitter.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="WindEmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
