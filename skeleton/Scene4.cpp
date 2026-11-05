@@ -19,7 +19,7 @@ void Scene4::init() {
 	CircleEmitter* f0 = new	CircleEmitter(m_pFactory, { 10.f, 0.f, 0.f }, { 0.f, 1.f, 0.f }, 1.f, 0.f, 0.1f, 0.1f, 0.2f, ParticleType::PROYECTILE, 2000000, { 1.f,1.f,0.f,1.f }, 1.f, 0.1f);
 	new WindEmitter(m_fFactory, new Box({ 0, -1, 0 }, { 0, 1, 0 }, 100.f, 10.f, 100.f, 10.f, 50.f), 500.f, 0.1f, 50.f);
 	new GravityEmitter(m_fFactory, new Ellipsoid({ 0, -1, 0 }, { 0,1,0 }, 100.f, 500.f, 100.f), 10.f);
-	new TornadoEmitter(m_fFactory, new Ellipsoid({ 0, -1 , 0 }, { 0, 1, 0 }, 50, 1000, 50), 1000000.f, 0.1f);
+	new TornadoEmitter(m_fFactory, new Box({ 0, -1 , 0 }, { 0, 1, 0 }, 100, 100, 100, 100, 500), 100.f, 0.1f);
 
 	m_emitters.push_back(f0);
 }

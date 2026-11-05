@@ -4,13 +4,13 @@ void TornadoEmitter::applyForce(Particle* p) {
 	Vector3D<float> pPos = p->getPos();
 	Vector3D<float> center = m_geo->getPosition();
 
-	Vector3D<float> relativePos = pPos - center;
+	Vector3D<float> relativePos = (pPos - center).normalize();
 	float distance = std::sqrt(relativePos.getX() * relativePos.getX() + relativePos.getZ() * relativePos.getZ());
 
 
 	Vector3D<float> windVelocity = {
 		-m_force * relativePos.getZ(),
-		0.0f,
+		m_force * relativePos.getY(),
 		m_force * relativePos.getX()
 	};
 

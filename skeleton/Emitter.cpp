@@ -28,7 +28,6 @@ bool Emitter::createParticle(double t) {
 				proyectile->setPos({ position.getX(), position.getY(), position.getZ() });
 				proyectile->setSize(m_pSize);
 				proyectile->setVel(direction * vel);
-				proyectile->setMass(0.001f);
 				proyectile->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
 				proyectile->setActive(true);
 			}
@@ -38,7 +37,6 @@ bool Emitter::createParticle(double t) {
 				ash->setPos({ position.getX(), position.getY(), position.getZ() });
 				ash->setSize(m_pSize);
 				ash->setVel(direction * vel);
-				ash->setMass(0.001f);
 				ash->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
 				ash->setActive(true);
 			}
@@ -48,7 +46,6 @@ bool Emitter::createParticle(double t) {
 				spark->setPos({ position.getX(), position.getY(), position.getZ() });
 				spark->setSize(m_pSize);
 				spark->setVel(direction * vel);
-				spark->setMass(0.001f);
 				spark->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
 				spark->reset();
 				spark->setActive(true);

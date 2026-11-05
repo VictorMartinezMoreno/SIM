@@ -19,13 +19,13 @@ ParticleFactory::ParticleFactory(int maxParticles)
 		for (int j = 0; j < particlePerType; j++) {
 			switch (particle) {
 			case PROYECTILE:
-				m_particles.at(particle).push_back(new Proyectile({0,0,0}, {0,0,0}, 0, 0));
+				m_particles.at(particle).push_back(new Proyectile({0,0,0}, {0,0,0}, 0.001f, 0));
 				break;
 			case ASH:
-				m_particles.at(particle).push_back(new Ash({ 0,0,0 }, { 0,0,0 }, 0, 0));
+				m_particles.at(particle).push_back(new Ash({ 0,0,0 }, { 0,0,0 }, 0.001f, 0));
 				break;
 			case SPARK:
-				m_particles.at(particle).push_back(new Spark({ 0,0,0 }, { 0,0,0 }, 0, 0));
+				m_particles.at(particle).push_back(new Spark({ 0,0,0 }, { 0,0,0 }, 0.001f, 0));
 				break;
 			default:
 				break;
