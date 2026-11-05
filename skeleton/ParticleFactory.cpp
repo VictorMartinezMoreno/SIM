@@ -78,3 +78,9 @@ void ParticleFactory::update(double dt) {
 		}
 	}
 }
+
+std::vector<Particle*> ParticleFactory::getParticles() {
+	std::vector<Particle*> pv;
+	for (auto& e : m_particles) pv.insert(pv.end(), e.second.begin(), e.second.end());
+	return pv;
+}

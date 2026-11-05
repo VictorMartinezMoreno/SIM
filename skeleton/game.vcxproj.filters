@@ -28,6 +28,12 @@
     <ClCompile Include="BoxEmitter.cpp" />
     <ClCompile Include="Ash.cpp" />
     <ClCompile Include="Spark.cpp" />
+    <ClCompile Include="ForceFactory.cpp" />
+    <ClCompile Include="Geometry.cpp" />
+    <ClCompile Include="Ellipsoid.cpp" />
+    <ClCompile Include="Box.cpp" />
+    <ClCompile Include="GravityEmitter.cpp" />
+    <ClCompile Include="Scene4.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -103,6 +109,27 @@
       <Filter>cabeceras</Filter>
     </ClInclude>
     <ClInclude Include="Spark.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceFactory.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceEmitter.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="Ellipsoid.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="geometry.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="GravityEmitter.h">
+      <Filter>cabeceras</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene4.h">
       <Filter>cabeceras</Filter>
     </ClInclude>
   </ItemGroup>

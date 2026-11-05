@@ -2,6 +2,7 @@
 #include "Proyectile.h"
 #include "Ash.h"
 #include "Spark.h"
+#include "ForceEmitter.h"
 
 Emitter::Emitter(ParticleFactory* factory, Vector3D<float> position, Vector3D<float> direction, float m_minVel, float m_maxVel, ParticleType type, Vector4 color, float lifeTime, float pSize, float freq, float mean, float stdD, bool active)
 	: m_factory(factory), m_position(position), m_direction(direction), m_minVel(m_minVel), m_maxVel(m_maxVel), m_type(type), m_densityFunc(UNIFORM), m_active(active), m_mean(mean), m_stdDeviation(stdD), m_freq(freq), m_currT(1.f), m_color(color), m_pSize(pSize), m_lifeTime(lifeTime) {
@@ -27,6 +28,7 @@ bool Emitter::createParticle(double t) {
 				proyectile->setPos({ position.getX(), position.getY(), position.getZ() });
 				proyectile->setSize(m_pSize);
 				proyectile->setVel(direction * vel);
+				proyectile->setMass(1.f);
 				proyectile->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
 				proyectile->setActive(true);
 			}
@@ -36,6 +38,7 @@ bool Emitter::createParticle(double t) {
 				ash->setPos({ position.getX(), position.getY(), position.getZ() });
 				ash->setSize(m_pSize);
 				ash->setVel(direction * vel);
+				ash->setMass(1.f);
 				ash->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
 				ash->setActive(true);
 			}
@@ -45,6 +48,7 @@ bool Emitter::createParticle(double t) {
 				spark->setPos({ position.getX(), position.getY(), position.getZ() });
 				spark->setSize(m_pSize);
 				spark->setVel(direction * vel);
+				spark->setMass(1.f);
 				spark->setLifeTime(newFloat(1 - LifeTimeGap, 1 + LifeTimeGap) * m_lifeTime);
 				spark->reset();
 				spark->setActive(true);

@@ -2,7 +2,7 @@
 #include <iostream>
 
 Proyectile::Proyectile(Vector3D<float> Pos, Vector3D<float> VelR, float masaR, float lifeTime, float size, Vector4 color, float d)
-	: Particle(Pos, VelR, lifeTime, {0.f,-10.f,0.f}, size, color, d), masaR(masaR), velR(VelR) {
+	: Particle(Pos, VelR, lifeTime, 0, {0.f,-10.f,0.f}, size, color, d), masaR(masaR), velR(VelR) {
 	vel = velR / velSFactor;
 
 	changeMassToSimulate();
@@ -34,7 +34,7 @@ void Proyectile::changeMassToSimulate() {
 	float velRM = velR.magnitude();
 	float velSM = vel.magnitude();
 
-	masaS = masaR * (velRM/velSM) * (velRM/velSM);
+	masaS = velSM!=0?masaR * (velRM/velSM) * (velRM/velSM):0;
 }
 
 void Proyectile::changeAccelerationToSimulate() {

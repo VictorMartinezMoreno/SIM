@@ -31,6 +31,7 @@ public:
 	~ParticleFactory();
 
 	void update(double dt);
+	std::vector<Particle*> getParticles();
 protected:
 	std::unordered_map<ParticleType, std::vector<Particle*>> m_particles;
 };

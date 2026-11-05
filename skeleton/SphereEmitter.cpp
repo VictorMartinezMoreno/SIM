@@ -14,16 +14,17 @@ SphereEmitter::SphereEmitter(ParticleFactory* factory, Vector3D<float> position,
 Vector3D<float> SphereEmitter::newPosition() {
 	const float
 		r1 = radius * newFloat(0.f, 1.f),
-		a1 = newFloat(0.f, 2.f * M_PI);
-	//Tenemos un punto aleatorio en el plano dos dimensiones
+		a1 = newFloat(0.f, 2.f * M_PI),
+		a2 = newFloat(0.f, M_PI);
+	
+	//Fórmula de coordenada esférica:
+	// x = r sen(a) cos(b)
+	// y = r sen(a) sen(b)
+	// z = r cos(a)
 	const float
-		x = m_position.getX() + r1 * std::cosf(a1),
-		y = m_position.getY() + r1 * std::sinf(a1);
-	//Una vez tenemos el punto en el plano XY, solo tenemos que darle una profundidad aleatoria
-	//pero el maximo y el minimo se basará en cuanto puede alejarse en el plano ZY en el punto Y que tenemos.
-	const float
-		zMax = std::sqrtf((radius * radius) - (r1 * r1)),
-		z = m_position.getZ() + zMax * newFloat(-1.f, 1.f);
+		x = m_position.getX() + r1 * std::sinf(a2) * std::cosf(a1),
+		y = m_position.getY() + r1 * std::sinf(a2) * std::sinf(a1),
+		z = m_position.getZ() + r1 * std::cosf(a2);
 
 	Vector3D<float> position = { x, y, z };
 

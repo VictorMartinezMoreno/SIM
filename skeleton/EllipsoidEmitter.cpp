@@ -11,28 +11,23 @@ EllipsoidEmitter::EllipsoidEmitter(ParticleFactory* factory, Vector3D<float> pos
 //podemos hallar un angulo aleatorio y dentro de él un punto aleatorio respetando el radio.
 
 Vector3D<float> EllipsoidEmitter::newPosition() {
-
 	const float
-		r1 = newFloat(0.f, 1.f),
-		a1 = newFloat(0.f, 2.f * M_PI);
+		r1 = widthRadius * newFloat(0.f, 1.f),
+		r2 = heightRadius * newFloat(0.f, 1.f),
+		r3 = widthRadius * newFloat(0.f, 1.f),
+		a1 = newFloat(0.f, 2.f * M_PI),
+		a2 = newFloat(0.f, M_PI);
 
+	//Fórmula de coordenada elipsoidal:
+	// x = r1 sen(a) cos(b)
+	// y = r2 sen(a) sen(b)
+	// z = r3 cos(a)
 	const float
-		xRel = widthRadius * r1 * cosf(a1),
-		yRel = heightRadius * r1 * sinf(a1);
-
-	//Tenemos un punto aleatorio en el plano dos dimensiones de una elipse
-	// Si usamos la formula r * cos(a) con los radios mayor y menor de una elipse, puedes encontrar un punto aleatorio en él.
-	const float
-		x = m_position.getX() + xRel,
-		y = m_position.getY() + yRel;
-
-	const float
-		componentXY = (xRel * xRel) / (widthRadius * widthRadius) + (yRel * yRel) / (heightRadius * heightRadius),
-		zMax = depthRadius * std::sqrtf(max(0.f, 1.f - componentXY)),
-		z = m_position.getZ() + (zMax * newFloat(-1.f, 1.f));
+		x = m_position.getX() + r1 * std::sinf(a2) * std::cosf(a1),
+		y = m_position.getY() + r2 * std::sinf(a2) * std::sinf(a1),
+		z = m_position.getZ() + r3 * std::cosf(a2);
 
 	Vector3D<float> position = { x, y, z };
-	rotatePoint(position, { 0, 1, 0 }, m_direction, m_position);
 
 	return position;
 }

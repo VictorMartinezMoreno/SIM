@@ -14,7 +14,7 @@ void Scene3::init() {
 	m_factory = new ParticleFactory(3000);
 
 	//EMISOR EN AREA CON PARTÍCULAS QUE IMITAN LUCIERNAGAS
-	BoxEmitter* f0 = new BoxEmitter(m_factory, { 0, 0, 0 }, { 0.f, 1.f, 0.f }, 25.f, 4.f, 20.f, 20.f, 25.f, ParticleType::SPARK, 20000, { 1.f,1.f,0.f,1.f }, 0.2f, 0.1f);
+	EllipsoidEmitter* f0 = new	EllipsoidEmitter(m_factory, {0.f, 0.f, 0.f}, {1.f, 1.f, 1.f}, 25.f, 25.f, 20.f, 0.4f, 25.f, ParticleType::SPARK, 20000, {1.f,1.f,0.f,1.f}, 1.f, 0.1f);
 
 	//EMISOR EN AREA CON PARTÍCULAS QUE IMITAN DESTELLOS (ESTRELLAS)
 	SphereEmitter* f1 = new SphereEmitter(m_factory, { 200, 0, 0 }, 500.f, 20.f, 25.f, ParticleType::SPARK, 5000, { 1.f,1.f,1.f,1.f }, 0.5f, 1.f);

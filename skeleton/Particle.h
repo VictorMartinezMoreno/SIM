@@ -7,7 +7,7 @@ class Particle {
 protected:
 	virtual void update(double dt) {};
 public:
-	Particle(Vector3D<float> Pos, Vector3D<float> Vel, float lifeTime = 1000.f, Vector3D<float> ac = { 0.0f, -10.f, 0.0f }, float size = 1.f, Vector4 color = { 0.f, 0.f, 0.f, 1.f }, float d = 0.7f);
+	Particle(Vector3D<float> Pos, Vector3D<float> Vel, float lifeTime = 1000.f, float m = 0, Vector3D<float> ac = { 0.0f, -10.f, 0.0f }, float size = 1.f, Vector4 color = { 0.f, 0.f, 0.f, 1.f }, float d = 0.7f);
 	virtual ~Particle();
 
 	void integrateEuler(double t);
@@ -16,6 +16,7 @@ public:
 
 	inline void decreaseLifeTime(float t) noexcept { currLifeTime -= t; }
 	inline float getLifeTime() const noexcept { return currLifeTime; }
+	inline const Vector3D<float>& getPos() const noexcept { return pos.p; }
 
 	inline void setColor(Vector4 color) noexcept { this->color = color; }
 	inline virtual void setLifeTime(float t) noexcept { maxLifeTime = t; currLifeTime = t; }
@@ -27,12 +28,13 @@ public:
 	virtual inline void setVel(Vector3D<float> vel) { this->vel = vel; }
 	inline void setActive(bool visible);
 
+	void addForce(const Vector3D<float>& force);
 protected:
-	Vector3D<float> vel, a;
+	Vector3D<float> vel, a, ac;
 	Vector4 color;
 	physx::PxTransform pos, antPos;
 
-	float d = 0.7f, size, maxSize;
+	float d = 0.7f, size, maxSize, masaS;
 	bool firstMove = true;
 	float currLifeTime, maxLifeTime; //Miliseconds
 

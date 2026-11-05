@@ -16,35 +16,17 @@ class ParticleFactory;
 
 class Emitter {
 protected:
-	float uniformRandom(float min, float max);
-	float normalRandom(float min, float max, float mean, float stdDeviation);
+	const float LifeTimeGap = 0.5f;
 
-	float newFloat(float min, float max);
-	void rotatePoint(
-		Vector3D<float>& position,
-		const Vector3D<float>& u,
-		const Vector3D<float>& v,
-		const Vector3D<float>& center
-	);
-
-	virtual Vector3D<float> newPosition() = 0;
-	virtual Vector3D<float> newDirection(const Vector3D<float>& pos) = 0;
+	ParticleType m_type;
+	DensityFunction m_densityFunc;
+	ParticleFactory* m_factory;
+	Vector3D<float> m_position, m_direction;
+	Vector4 m_color;
+	float m_mean, m_stdDeviation, m_minVel, m_maxVel, m_freq, m_currT, m_pSize, m_lifeTime;
+	bool m_active;
+	std::mt19937 m_engine;
 public:
-
-	Emitter(
-		ParticleFactory* factory,
-		Vector3D<float> position,
-		Vector3D<float> direction,
-		float m_minVel, float m_maxVel,
-		ParticleType type,
-		Vector4 color,
-		float lifeTime,
-		float pSize,
-		float freq,
-		float mean, float stdD,
-		bool active
-	);
-
 	virtual bool createParticle(double t);
 
 	inline void activate(bool activate) noexcept { m_active = activate; }
@@ -68,15 +50,35 @@ public:
 	inline float getMaxVel() const noexcept { return m_maxVel; }
 	inline float getFreq() const noexcept { return m_freq; }
 
+	virtual ~Emitter() = default;
 protected:
-	const float LifeTimeGap = 0.5f;
+	float uniformRandom(float min, float max);
+	float normalRandom(float min, float max, float mean, float stdDeviation);
 
-	ParticleType m_type;
-	DensityFunction m_densityFunc;
-	ParticleFactory* m_factory;
-	Vector3D<float> m_position, m_direction;
-	Vector4 m_color;
-	float m_mean, m_stdDeviation, m_minVel, m_maxVel, m_freq, m_currT, m_pSize, m_lifeTime;
-	bool m_active;
-	std::mt19937 m_engine;
+	float newFloat(float min, float max);
+	void rotatePoint(
+		Vector3D<float>& position,
+		const Vector3D<float>& u,
+		const Vector3D<float>& v,
+		const Vector3D<float>& center
+	);
+
+	virtual Vector3D<float> newPosition() = 0;
+	virtual Vector3D<float> newDirection(const Vector3D<float>& pos) = 0;
+
+	//Constructora protegida porque no interesa que nadie cree un objeto Emitter,
+	//nos interesa solo que sus hijos lo creen.
+	Emitter(
+		ParticleFactory* factory,
+		Vector3D<float> position,
+		Vector3D<float> direction,
+		float m_minVel, float m_maxVel,
+		ParticleType type,
+		Vector4 color,
+		float lifeTime,
+		float pSize,
+		float freq,
+		float mean, float stdD,
+		bool active
+	);
 };
